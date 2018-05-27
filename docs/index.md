@@ -13,4 +13,4 @@ Faça um diagrama de implantação. Exemplo:
 
 ## Montagem do dispositivo
 
-![](montagem.png)
+![](model.png)
