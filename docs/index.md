@@ -6,9 +6,7 @@ Um sistema que acompanha a umidade do solo de uma plantação e em caso de solo 
 
 ## Diagrama de implantação
 
-Faça um diagrama de implantação. Exemplo:
-
-![](implantacao.png)
+![](diagrama.png)
 
 
 ## Montagem do dispositivo
