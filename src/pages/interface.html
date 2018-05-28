@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>   
+    <meta charset="UTF-8"/> 
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        h2{
+            text-align:center;
+        }
+        #btn1{
+            text-align:center;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+    <script>
+  
+        var iosocket;
+        var pollOneH = 0;
+        var poll1;
+        var text;
+        var potValue;
+        var prevPotValue;
+        var valor = 0;
+
+        function initSocketIO()
+        {
+            iosocket = io.connect();
+            iosocket.on('onconnection', function(value) {
+                
+                initButton();
+                
+                iosocket.on('update', function (data) {
+                    $( "#umidade" ).text(data);
+                    
+                });
+            });
+        }
+        
+        
+        function initButton()
+        {
+            $( "#check" ).button();
+        }
+        
+        window.onload = function() {
+            initSocketIO();
+        };
+        
+        $(document).ready(function() {
+            $('#check').click(function() {
+                valor += 1;
+                valor %= 2;
+                iosocket.emit('buttonval',valor);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Nível de umidade: <span id="umidade" class="text-primary"></span></h2>
+
+	<div id="btn1">
+        <button id="check"><label for="check">Iniciar Irrigação</label></button>
+	</div>
+    </div> 
+</body>
+</html>
