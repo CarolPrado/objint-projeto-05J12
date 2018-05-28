@@ -2,7 +2,7 @@
 
 ## Ideia
 
-Um sistema que acompanha a umidade do solo de uma plantação e em caso de solo seco, emite um comando para ativar o mecanismo de irrigação. Será possível acompanhar o status do solo em tempo real através de uma aplicação web, bem como controlar a irrigação manualmente por ela.
+Uma aplicação web que acompanha o status de umidade do solo através de um sensor e aciona o sistema de irrigação integrado em um dispositivo arduino.
 
 ## Diagrama de implantação
 
