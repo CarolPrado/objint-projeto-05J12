@@ -8,6 +8,6 @@
 
 Carolina Prado TIA: 41421604
 
-## Documentação: (*Coloque os documentos na pasta docs*)
+## Documentação: Pasta docs
 
-## Código-fonte: (*Coloque o código-fonte na pasta src*)
+## Código-fonte: Pasta src
