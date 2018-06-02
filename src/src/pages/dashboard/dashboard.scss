@@ -1,0 +1,50 @@
+page-dashboard {
+    .planta {
+        background-color: #ffffff;
+        margin: 20px 0 0 70px;
+        width: 60%;
+        // width: 60%;
+    }
+
+    .titulo {
+        border-bottom: 1px solid #d6d6d6; 
+        font-size: 17pt;
+        b {
+            color: map-get($colors , light );
+        }
+    }
+
+    .refresh-button {
+        float: right;
+    }
+    
+    .planta-status {
+        
+        border-bottom: 1px solid #d3dad5;
+        padding: 50px 50px 0px 50px;
+        height: 300px;
+    }
+    
+    .planta-info {
+        margin: 30px 0 0 40px;
+    }
+    
+    .icon-planta {
+        width: 200px;
+    }
+
+    .planta-button {
+        height: 70px;
+        width: 150px;
+        margin: 50px 0 0 150px;
+    }
+
+    .irrigacao-counter {
+        background-color: #ffffff;
+        margin: 20px 0 0 30px;
+        width: 30%;
+        height: auto;
+        // margin-left: 0px;
+    }
+
+}
