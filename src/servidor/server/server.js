@@ -16,6 +16,7 @@ var arduino = new five.Board({
 }).on('ready', () => {
 
 	// declaracao dos pins
+	
 	var atividades = []
 
 	var sensorUmidade = new five.Pin("A0");
@@ -26,20 +27,58 @@ var arduino = new five.Board({
 			type: 'NO'
 		}
 	);
-	
+
 	console.log("Arduino pronto!");
 
-	arduino.loop(2000, () => {
-		sensorUmidade.query((data) => {
-			if (data.value > 900) {
-				rele.close();
-				setTimeout(() => {
-					console.log('Iniciando irrigacao');
-					rele.open();
-				}, 6000);
-			}
-		})
-	})
+	// Verifica umidade do solo, se necessario aciona relay
+ 
+	new Promise((resolve, reject) => {
+		arduino.loop(2000, () => {
+			sensorUmidade.query((data) => {
+				if (data.value > 900) {
+					resolve();
+				};
+			});
+		});
+	}).then(() => {
+		rele.close();
+		setTimeout(() => {
+			console.log('Iniciando irrigacao');
+			atividades.unshift(
+				{
+					value: true,
+					timestamp: moment().format()
+
+				}
+			);
+			rele.open();
+		}, 6000);
+	});
+
+	// arduino.loop(2000, () => {
+	// 	sensorUmidade.query((data) => {
+	// 		new Promise((resolve, reject) => {
+	// 			if (data.value > 900) {
+	// 				resolve();
+	// 			}
+	// 		}).then(() => {
+
+	// 			rele.close();
+	// 			setTimeout(() => {
+	// 				console.log('Iniciando irrigacao');
+	// 				atividades.unshift(
+	// 					{
+	// 						value: true,
+	// 						timestamp: moment().format()
+
+	// 					}
+	// 				);
+	// 				rele.open();
+	// 			}, 6000);
+	// 		});
+	// 	});
+	// });
+
 
 	// sensorUmidade2.on('change', (data) => {
 	//     if (data.value > 900 ) {
@@ -52,6 +91,7 @@ var arduino = new five.Board({
 	//     }
 	// })
 
+	// Métodos da api:
 
 	app.get('/', (req, res) => {
 		res.send({ result: 'olar' });
