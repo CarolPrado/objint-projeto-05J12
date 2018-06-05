@@ -12,11 +12,11 @@ http.createServer(app).listen(3000, function () {
 });
 
 var arduino = new five.Board({
-	// port: 'COM3' //porta usb do arduino
+	port: '/dev/ttyUSB0' //porta usb do arduino
 }).on('ready', () => {
 
 	// declaracao dos pins
-	
+
 	var atividades = []
 
 	var sensorUmidade = new five.Pin("A0");
@@ -31,53 +31,49 @@ var arduino = new five.Board({
 	console.log("Arduino pronto!");
 
 	// Verifica umidade do solo, se necessario aciona relay
- 
-	new Promise((resolve, reject) => {
-		arduino.loop(2000, () => {
-			sensorUmidade.query((data) => {
-				if (data.value > 900) {
-					resolve();
-				};
-			});
-		});
-	}).then(() => {
-		rele.close();
-		setTimeout(() => {
-			console.log('Iniciando irrigacao');
-			atividades.unshift(
-				{
-					value: true,
-					timestamp: moment().format()
 
-				}
-			);
-			rele.open();
-		}, 6000);
-	});
-
-	// arduino.loop(2000, () => {
-	// 	sensorUmidade.query((data) => {
-	// 		new Promise((resolve, reject) => {
+	// new Promise((resolve, reject) => {
+	// 	arduino.loop(2000, () => {
+	// 		sensorUmidade.query((data) => {
 	// 			if (data.value > 900) {
 	// 				resolve();
-	// 			}
-	// 		}).then(() => {
-
-	// 			rele.close();
-	// 			setTimeout(() => {
-	// 				console.log('Iniciando irrigacao');
-	// 				atividades.unshift(
-	// 					{
-	// 						value: true,
-	// 						timestamp: moment().format()
-
-	// 					}
-	// 				);
-	// 				rele.open();
-	// 			}, 6000);
+	// 			};
 	// 		});
 	// 	});
+	// }).then(() => {
+	// 	rele.close();
+	// 	setTimeout(() => {
+	// 		console.log('Iniciando irrigacao');
+	// 		atividades.unshift(
+	// 			{
+	// 				value: true,
+	// 				timestamp: moment().format()
+
+	// 			}
+	// 		);
+	// 		rele.open();
+	// 	}, 6000);
 	// });
+
+	arduino.loop(2000, () => {
+		sensorUmidade.query((data) => {
+			if (data.value > 900) {
+				rele.close();
+				setTimeout(() => {
+					console.log('Iniciando irrigacao');
+					atividades.unshift(
+						{
+							value: true,
+							timestamp: moment().format()
+
+						}
+					);
+					rele.open();
+				}, 6000);
+			}
+		});
+
+	});
 
 
 	// sensorUmidade2.on('change', (data) => {

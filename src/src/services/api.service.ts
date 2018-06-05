@@ -15,7 +15,9 @@ export class ApiService {
         private httpOptions: RequestOptions
     ) {
 
-        this._apiPath = 'http://localhost:3000'
+		// this._apiPath = 'http://localhost:3000'
+		this._apiPath = 'http://192.168.43.44:3000'
+		
         let headers = new Headers(
             {
                 'Content-Type': 'application/json',
